@@ -29,7 +29,7 @@ void UOverheadWidget::ShowPlayerNetRole(APawn* InPawn)
 		break;
 	case ROLE_None:
 		Role = FString("None");
-		break;		
+		break;
 	}
 	FString RemoteRoleString = FString::Printf(TEXT("Remote Role: %s"), *Role);
 	SetDisplayText(RemoteRoleString);

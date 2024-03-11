@@ -13,10 +13,11 @@ UCLASS()
 class BLASTER_API UOverheadWidget : public UUserWidget
 {
 	GENERATED_BODY()
+
 public:
 	UPROPERTY(meta = (BindWidget))
 	class UTextBlock* DisplayText;
-	
+
 	void SetDisplayText(FString TextToDisplay);
 
 	UFUNCTION(BlueprintCallable)

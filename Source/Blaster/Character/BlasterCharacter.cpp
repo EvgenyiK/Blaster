@@ -1,4 +1,3 @@
-
 #include "BlasterCharacter.h"
 
 #include "Camera/CameraComponent.h"
@@ -31,7 +30,6 @@ ABlasterCharacter::ABlasterCharacter()
 void ABlasterCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 
@@ -40,18 +38,18 @@ void ABlasterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
-	
-	PlayerInputComponent->BindAxis("MoveForward",this,&ABlasterCharacter::MoveForward);
-	PlayerInputComponent->BindAxis("MoveRight",this,&ABlasterCharacter::MoveRight);
-	PlayerInputComponent->BindAxis("Turn",this,&ABlasterCharacter::Turn);
-	PlayerInputComponent->BindAxis("LookUp",this,&ABlasterCharacter::LookUp);
+
+	PlayerInputComponent->BindAxis("MoveForward", this, &ABlasterCharacter::MoveForward);
+	PlayerInputComponent->BindAxis("MoveRight", this, &ABlasterCharacter::MoveRight);
+	PlayerInputComponent->BindAxis("Turn", this, &ABlasterCharacter::Turn);
+	PlayerInputComponent->BindAxis("LookUp", this, &ABlasterCharacter::LookUp);
 }
 
 void ABlasterCharacter::MoveForward(float Value)
 {
 	if (Controller != nullptr && Value != 0.f)
 	{
-		const FRotator YawRotation(0.f,Controller->GetControlRotation().Yaw, 0.f);
+		const FRotator YawRotation(0.f, Controller->GetControlRotation().Yaw, 0.f);
 		const FVector Direction(FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X));
 		AddMovementInput(Direction, Value);
 	}
@@ -61,7 +59,7 @@ void ABlasterCharacter::MoveRight(float Value)
 {
 	if (Controller != nullptr && Value != 0.f)
 	{
-		const FRotator YawRotation(0.f,Controller->GetControlRotation().Yaw, 0.f);
+		const FRotator YawRotation(0.f, Controller->GetControlRotation().Yaw, 0.f);
 		const FVector Direction(FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y));
 		AddMovementInput(Direction, Value);
 	}
@@ -81,9 +79,4 @@ void ABlasterCharacter::LookUp(float Value)
 void ABlasterCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
-
-
-
-
