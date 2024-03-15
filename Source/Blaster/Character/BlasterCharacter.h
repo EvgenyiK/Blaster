@@ -27,6 +27,7 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	void SetOverlappingWeapon(class AWeapon* Weapon);
 	virtual void PostInitializeComponents() override;
+	bool IsWeaponEquipped();
 	
 private:
 	UPROPERTY(VisibleAnywhere, Category = Camera)
