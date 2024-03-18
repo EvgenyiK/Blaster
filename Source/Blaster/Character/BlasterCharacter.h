@@ -21,6 +21,8 @@ protected:
 	void LookUp(float Value);
 	void EquipButtonPressed();
 	void CrouchButtonPressed();
+	void AimButtonPressed();
+	void AimButtonRealised();
 
 public:
 	virtual void Tick(float DeltaTime) override;
@@ -29,6 +31,7 @@ public:
 	void SetOverlappingWeapon(class AWeapon* Weapon);
 	virtual void PostInitializeComponents() override;
 	bool IsWeaponEquipped();
+	bool IsAiming();
 	
 private:
 	UPROPERTY(VisibleAnywhere, Category = Camera)
