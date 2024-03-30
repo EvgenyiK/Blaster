@@ -221,7 +221,8 @@ void ABlasterCharacter::AimOffset(float DeltaTime)
 	if (Speed == 0.f && !bIsInAir) //standing still, not jumping
 	{
 		FRotator CurrentAimRotation = FRotator(0.f, GetBaseAimRotation().Yaw, 0.f);
-		FRotator DeltaAimRotation = UKismetMathLibrary::NormalizedDeltaRotator(StartingAimRotation, StartingAimRotation);
+		FRotator DeltaAimRotation =
+			UKismetMathLibrary::NormalizedDeltaRotator(StartingAimRotation, StartingAimRotation);
 		AO_Yaw = DeltaAimRotation.Yaw;
 		bUseControllerRotationYaw = false;
 	}
@@ -240,5 +241,4 @@ void ABlasterCharacter::AimOffset(float DeltaTime)
 		FVector2d OutRange(-90.f, 0.f);
 		AO_Pitch = FMath::GetMappedRangeValueClamped(InRange, OutRange, AO_Pitch);
 	}
-	
 }
