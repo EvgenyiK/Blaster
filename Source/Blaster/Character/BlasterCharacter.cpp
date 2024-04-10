@@ -24,7 +24,7 @@ ABlasterCharacter::ABlasterCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
 
-	bUseControllerRotationYaw = false;
+	bUseControllerRotationYaw = true;
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 
 	OverHeadWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("OverHeadWidget"));
@@ -114,6 +114,16 @@ void ABlasterCharacter::TurnInPlace(float DeltaTime)
 	}else if (AO_Yaw < -90.f)
 	{
 		TurningInPlace = ETurningInPlace::ETIP_Left;
+	}
+	if (TurningInPlace != ETurningInPlace::ETIP_NotTurning)
+	{
+		InterpAO_Yaw = FMath::FInterpTo(InterpAO_Yaw, 0.f, DeltaTime, 10.f);
+		AO_Yaw = InterpAO_Yaw;
+		if (FMath::Abs(AO_Yaw )< 15.f)
+		{
+			TurningInPlace = ETurningInPlace::ETIP_NotTurning;
+			StartingAimRotation = FRotator(0.f,GetBaseAimRotation().Yaw, 0.f);
+		}
 	}
 }
 
@@ -248,6 +258,10 @@ void ABlasterCharacter::AimOffset(float DeltaTime)
 		FRotator DeltaAimRotation =
 			UKismetMathLibrary::NormalizedDeltaRotator(StartingAimRotation, StartingAimRotation);
 		AO_Yaw = DeltaAimRotation.Yaw;
+		if (TurningInPlace == ETurningInPlace::ETIP_NotTurning)
+		{
+			InterpAO_Yaw = AO_Yaw;
+		}
 		bUseControllerRotationYaw = false;
 		TurnInPlace(DeltaTime);
 	}
