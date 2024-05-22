@@ -5,6 +5,8 @@
 #include "Blaster/BlasterTypes/TurningInPlace.h"
 #include "BlasterCharacter.generated.h"
 
+
+
 UCLASS()
 class BLASTER_API ABlasterCharacter : public ACharacter
 {
@@ -44,6 +46,7 @@ public:
 	FORCEINLINE ETurningInPlace GetTurningInPlace() const{return TurningInPlace;}
 	AWeapon* GetEquippedWeapon();
 	FVector GetHitTarget() const;
+	FORCEINLINE class UCameraComponent* GetFollowCamera() const{return FollowCamera;}
 	
 private:
 	UPROPERTY(VisibleAnywhere, Category = Camera)
