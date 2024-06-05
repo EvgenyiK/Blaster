@@ -7,7 +7,6 @@
 #include "BlasterCharacter.generated.h"
 
 
-
 UCLASS()
 class BLASTER_API ABlasterCharacter : public ACharacter, public IInteractWithCrosshairsInterface
 {
@@ -31,6 +30,7 @@ protected:
 	virtual void Jump() override;
 	void FireButtonPressed();
 	void FireButtonReleased();
+	void PlayHitReactMontage();
 
 public:
 	virtual void Tick(float DeltaTime) override;
@@ -39,16 +39,20 @@ public:
 	void SetOverlappingWeapon(class AWeapon* Weapon);
 	virtual void PostInitializeComponents() override;
 	void PlayFireMontage(bool bAiming);
-	
+
+	UFUNCTION(NetMulticast, Unreliable)
+	void MulticastHit();
+
+
 	bool IsWeaponEquipped();
 	bool IsAiming();
-	FORCEINLINE float GetAO_Yaw() const {return AO_Yaw;}
-	FORCEINLINE float GetAO_Pitch() const {return AO_Pitch;}
-	FORCEINLINE ETurningInPlace GetTurningInPlace() const{return TurningInPlace;}
+	FORCEINLINE float GetAO_Yaw() const { return AO_Yaw; }
+	FORCEINLINE float GetAO_Pitch() const { return AO_Pitch; }
+	FORCEINLINE ETurningInPlace GetTurningInPlace() const { return TurningInPlace; }
 	AWeapon* GetEquippedWeapon();
 	FVector GetHitTarget() const;
-	FORCEINLINE class UCameraComponent* GetFollowCamera() const{return FollowCamera;}
-	
+	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
 private:
 	UPROPERTY(VisibleAnywhere, Category = Camera)
 	class USpringArmComponent* CameraBoom;
@@ -70,7 +74,7 @@ private:
 
 	UFUNCTION(Server, Reliable)
 	void ServerEquipButtonPressed();
-	
+
 	float AO_Yaw;
 	float InterpAO_Yaw;
 	float AO_Pitch;
@@ -81,6 +85,10 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = Combat)
 	class UAnimMontage* FireWeaponMontage;
+
+	UPROPERTY(EditAnywhere, Category = Combat)
+	UAnimMontage* HitReactMontage;
+
 
 	void HideCameraIfCharacterClose();
 
