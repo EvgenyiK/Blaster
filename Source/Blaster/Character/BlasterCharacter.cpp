@@ -2,6 +2,7 @@
 #include "Blaster/Blaster.h"
 
 #include "Blaster/BlasterComponents/CombatComponent.h"
+#include "Blaster/PlayerController/BlasterPlayerController.h"
 #include "Blaster/Weapon/Weapon.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -224,9 +225,10 @@ void ABlasterCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (OverlappingWeapon)
+	BlasterPlayerController = Cast<ABlasterPlayerController>(Controller);
+	if (BlasterPlayerController)
 	{
-		OverlappingWeapon->ShowPickupWidget(true);
+		BlasterPlayerController->SetHUDHealth(Health, MaxHealth);
 	}
 }
 

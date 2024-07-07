@@ -120,4 +120,6 @@ private:
 
 	UFUNCTION()
 	void OnRep_Health();
+
+	class ABlasterPlayerController* BlasterPlayerController;
 };
