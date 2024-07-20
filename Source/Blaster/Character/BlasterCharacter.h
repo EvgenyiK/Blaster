@@ -34,6 +34,12 @@ protected:
 	void FireButtonReleased();
 	void PlayHitReactMontage();
 
+
+	UFUNCTION()
+	void ReceiveDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType,
+	                   class AController* InstigatorController, AActor* DamageCauser);
+	void UpdateHUDHealth();
+
 public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -42,8 +48,6 @@ public:
 	virtual void PostInitializeComponents() override;
 	void PlayFireMontage(bool bAiming);
 
-	UFUNCTION(NetMulticast, Unreliable)
-	void MulticastHit();
 
 	virtual void OnRep_ReplicatedMovement() override;
 
