@@ -7,6 +7,7 @@
 #include "BlasterCharacter.generated.h"
 
 
+
 UCLASS()
 class BLASTER_API ABlasterCharacter : public ACharacter, public IInteractWithCrosshairsInterface
 {
@@ -47,10 +48,9 @@ public:
 	void SetOverlappingWeapon(class AWeapon* Weapon);
 	virtual void PostInitializeComponents() override;
 	void PlayFireMontage(bool bAiming);
-
-
+	
 	virtual void OnRep_ReplicatedMovement() override;
-
+	void Elim();
 
 	bool IsWeaponEquipped();
 	bool IsAiming();
