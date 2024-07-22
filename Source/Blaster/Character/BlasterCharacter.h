@@ -7,7 +7,6 @@
 #include "BlasterCharacter.generated.h"
 
 
-
 UCLASS()
 class BLASTER_API ABlasterCharacter : public ACharacter, public IInteractWithCrosshairsInterface
 {
@@ -48,8 +47,11 @@ public:
 	void SetOverlappingWeapon(class AWeapon* Weapon);
 	virtual void PostInitializeComponents() override;
 	void PlayFireMontage(bool bAiming);
-	
+	void PlayElimMontage();
+
 	virtual void OnRep_ReplicatedMovement() override;
+
+	UFUNCTION(NetMulticast, Reliable)
 	void Elim();
 
 	bool IsWeaponEquipped();
@@ -61,6 +63,7 @@ public:
 	FVector GetHitTarget() const;
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 	FORCEINLINE bool ShouldRotateRootBone() const { return bRotateRootBone; }
+	FORCEINLINE bool IsElimmed() const { return bElimmed; }
 
 private:
 	UPROPERTY(VisibleAnywhere, Category = Camera)
@@ -98,6 +101,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = Combat)
 	UAnimMontage* HitReactMontage;
 
+	UPROPERTY(EditAnywhere, Category = Combat)
+	UAnimMontage* ElimMontage;
 
 	void HideCameraIfCharacterClose();
 
@@ -126,4 +131,6 @@ private:
 	void OnRep_Health();
 
 	class ABlasterPlayerController* BlasterPlayerController;
+
+	bool bElimmed = false;
 };
